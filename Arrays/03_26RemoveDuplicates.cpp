@@ -1,32 +1,44 @@
+
 #include <iostream>
 #include <vector>
-
+// TODO (Future Me):
+// Accepted on LeetCode.
+// Second attempt using an extra-space approach.
+// Revisit later to solve it using the optimal in-place O(n) solution.
 using namespace std;
-
-// TODO:
-// Accepted using a manual shifting approach.
-// Try solving this without shifting elements.
-
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
+        int i = 0, j = 1;
         int s = nums.size();
 
-        if (s == 0) {
+        if (nums.empty()) {
+            cout << 0;
             return 0;
         }
+        else {
+            nums.push_back(nums[0]);
+        }
 
-        for (int i = 1; i < s; i++) {
-            if (nums[i - 1] == nums[i]) {
-                for (int j = i; j < s - 1; j++) {
-                    nums[j] = nums[j + 1];
-                }
-                s--;
-                i--;
+        while (j < s) {
+            if (nums[i] != nums[j]) {
+                nums.push_back(nums[j]);
+                i = j;
+                j++;
+            }
+            else {
+                j++;
             }
         }
 
-        return s;
+        int k = s;
+
+        for (int i = 0; (i < k) && (s < nums.size()); i++) {
+            nums[i] = nums[s];
+            s++;
+        }
+
+        return nums.size() - k;
     }
 };
 
@@ -34,7 +46,7 @@ int main() {
     Solution obj;
 
     int n;
-    cout << "Enter size of vector: ";
+    cout << "Enter number of elements: ";
     cin >> n;
 
     vector<int> nums(n);
@@ -44,12 +56,12 @@ int main() {
         cin >> nums[i];
     }
 
-    int newSize = obj.removeDuplicates(nums);
+    int k = obj.removeDuplicates(nums);
 
-    cout << "New size: " << newSize << endl;
+    cout << "Number of unique elements: " << k << endl;
 
-    cout << "Array after removing duplicates:\n";
-    for (int i = 0; i < newSize; i++) {
+    cout << "Array after operation: ";
+    for (int i = 0; i < k; i++) {
         cout << nums[i] << " ";
     }
 
