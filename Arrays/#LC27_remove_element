@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+
+    vector<int> nums(n);
+
+    for (int i = 0; i < n; i++) {
+        cin >> nums[i];
+    }
+
+    int val;
+    cin >> val;
+
+    vector<int> nums2;
+
+    for (int i = 0; i < nums.size(); i++) {
+        if (nums[i] != val) {
+            nums2.push_back(nums[i]);
+        }
+    }
+
+    nums = nums2;
+
+    cout << nums.size() << endl;
+
+    for (int x : nums) {
+        cout << x << " ";
+    }
+
+    cout << endl;
+
+    return 0;
+}
